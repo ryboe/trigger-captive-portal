@@ -1,0 +1,20 @@
+run:
+  allow-parallel-runners: true
+  modules-download-mode: vendor
+  tests: true
+  timeout: 1m
+
+presets:
+  - bugs
+
+linters:
+  enable:
+    - gocyclo
+    - gofumpt
+    - misspell
+
+linters-settings:
+  gocyclo:
+    min-complexity: 10
+  gofumpt:
+    extra-rules: true
