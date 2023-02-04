@@ -1,6 +1,6 @@
 {
     "name": "Trigger Captive Portal",
-    "image": "ghcr.io/ryboe/gocodespace:1.19",
+    "image": "ghcr.io/ryboe/gocodespace:1.20",
     // dlv needs these capabilities. It needs to run the ptrace (process trace)
     // syscall, and we need to disable the default seccomp profile applied to
     // docker containers.
@@ -10,26 +10,30 @@
         "--security-opt",
         "seccomp=unconfined"
     ],
-    "settings": {
-        "[dockerfile]": {
-            "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-        },
-        "editor.formatOnSave": true,
-        "files.insertFinalNewline": true,
-        "files.trimFinalNewlines": true,
-        "files.trimTrailingWhitespace": true,
-        "go.lintTool": "golangci-lint",
-        "go.toolsManagement.autoUpdate": true,
-        "gopls": {
-            "formatting.gofumpt": true,
-            "ui.completion.usePlaceholders": true
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "[dockerfile]": {
+                    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+                },
+                "editor.formatOnSave": true,
+                "files.insertFinalNewline": true,
+                "files.trimFinalNewlines": true,
+                "files.trimTrailingWhitespace": true,
+                "go.lintTool": "golangci-lint",
+                "go.toolsManagement.autoUpdate": true,
+                "gopls": {
+                    "formatting.gofumpt": true,
+                    "ui.completion.usePlaceholders": true
+                }
+            },
+            "extensions": [
+                "davidanson.vscode-markdownlint",
+                "eamodio.gitlens",
+                "golang.go",
+                "ms-azuretools.vscode-docker",
+                "redhat.vscode-yaml"
+            ]
         }
-    },
-    "extensions": [
-        "davidanson.vscode-markdownlint",
-        "eamodio.gitlens",
-        "golang.go",
-        "ms-azuretools.vscode-docker",
-        "redhat.vscode-yaml"
-    ]
+    }
 }
