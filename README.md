@@ -8,10 +8,12 @@ work.
 
 ## Install
 
-This will download the binary to `/usr/local/bin`, which is in your `$PATH`.
+This will download the macOS binary to `/usr/local/bin`, which is in your
+`$PATH`. It's a universal binary, so it will work on both Intel and Apple
+Silicon Macs.
 
 ```zsh
-curl --retry 3 --retry-max-time 120 -sSL https://github.com/ryboe/trigger-captive-portal/releases/latest/download/trigger-captive-portal | sudo tee /usr/local/bin/trigger-captive-portal > /dev/null
+curl --retry 3 --retry-max-time 120 -sSL https://github.com/ryboe/trigger-captive-portal/releases/latest/download/trigger-captive-portal | sudo tar -xzf - -C /usr/local/bin
 ```
 
 ## Usage
