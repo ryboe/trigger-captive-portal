@@ -20,6 +20,8 @@ archives:
   # Publish the binary in a tarball to preserve it's executable permissions.
   - format: tar.gz
     name_template: "{{ .ProjectName }}"
+    files:
+      - trigger-captive-portal
 
 checksum:
   name_template: checksums.txt
