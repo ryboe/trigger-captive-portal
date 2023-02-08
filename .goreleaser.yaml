@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
+project_name: trigger-captive-portal
 
 builds:
   - env:
@@ -10,16 +11,17 @@ builds:
       - amd64
       - arm64
     ldflags:
-      - -s -w -X main.version={{.Version}}
+      - -s -w -X main.version={{ .Version }}
 
 universal_binaries:
   - replace: true
 
 archives:
   - format: binary
+    name_template: "{{ .ProjectName }}"
 
 checksum:
-  name_template: "checksums.txt"
+  name_template: checksums.txt
 
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
