@@ -19,6 +19,10 @@ universal_binaries:
 archives:
   - format: binary
     name_template: "{{ .ProjectName }}"
+    builds_info:
+      group: root
+      owner: root
+      mode: 0755 # make the binary executable
 
 checksum:
   name_template: checksums.txt
