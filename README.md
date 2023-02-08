@@ -13,7 +13,7 @@ This will download the macOS binary to `/usr/local/bin`, which is in your
 Silicon Macs.
 
 ```zsh
-curl --retry 3 --retry-max-time 120 -sSL https://github.com/ryboe/trigger-captive-portal/releases/latest/download/trigger-captive-portal | sudo tar -xzf - -C /usr/local/bin trigger-captive-portal
+curl --retry 3 --retry-max-time 120 -sSL https://github.com/ryboe/trigger-captive-portal/releases/latest/download/trigger-captive-portal.tar.gz | sudo tar -xzf - -C /usr/local/bin trigger-captive-portal
 ```
 
 ## Usage
