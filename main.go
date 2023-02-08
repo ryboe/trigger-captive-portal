@@ -22,7 +22,7 @@ import (
 const proxyAddr = "localhost:1666"
 
 // This will be set to something like 'v1.2.3' at build time.
-var Version = ""
+var version = ""
 
 // The captive portal is triggered when you make an unsecured HTTP request,
 // probably using a web browser. It has to be an unsecured HTTP request, because
@@ -131,7 +131,7 @@ OPTIONS:
     -h, --help
         Print help information
 
-`[1:], programName, Version)
+`[1:], programName, version)
 }
 
 // getChromeAppName returns the name of the installed Chrome app, which will be
