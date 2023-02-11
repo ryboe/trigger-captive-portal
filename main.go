@@ -57,11 +57,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	chromeApp, err := getChromeAppName() // "Google Chrome" or "Chromium" or err if neither is installed
+	// This will return "Google Chrome" or "Chromium" or "Brave Browser" err if
+	// non are installed.
+	chromeApp, err := getChromeAppName()
 	if err != nil {
-		log.Fatalf("Error checking if Chrome is installed:\n%v", err)
+		log.Fatalf("Error checking if usable browser is installed:\n%v", err)
 	}
-	log.Println("Chrome is installed.")
+	log.Printf("%s is installed.", chromeApp)
 
 	// Get the name of the Wi-Fi interface, e.g. 'en0'.
 	log.Println("Getting Wi-Fi network interface...")
@@ -91,9 +93,9 @@ func main() {
 		log.Fatalf("Error starting SOCKS5 server:\n%v", err)
 	}
 
-	// Open Chrome in incognito mode and make an unsecured HTTP request to
+	// Open the browser in incognito mode and make an unsecured HTTP request to
 	// http://captive.apple.com.
-	err = makeUnsecuredHTTPRequestWithChrome(chromeApp)
+	err = makeUnsecuredHTTPRequestWithBrowser(chromeApp)
 	if err != nil {
 		log.Fatalf("Error making unsecured HTTP request with Chrome:\n%v", err)
 	}
@@ -135,9 +137,10 @@ OPTIONS:
 }
 
 // getChromeAppName returns the name of the installed Chrome app, which will be
-// `Google Chrome` or `Chromium`. It returns an error if neither is installed.
+// `Google Chrome`, `Chromium`, or `Brave Browser`. It returns an error if none
+// are installed.
 func getChromeAppName() (string, error) {
-	for _, app := range []string{"Google Chrome", "Chromium"} {
+	for _, app := range []string{"Google Chrome", "Chromium", "Brave Browser"} {
 		installed, err := isInstalled(app)
 		if err != nil {
 			return "", err
@@ -147,7 +150,7 @@ func getChromeAppName() (string, error) {
 		}
 	}
 
-	return "", fmt.Errorf("neither Chrome nor Chromium is installed")
+	return "", fmt.Errorf("neither Chrome nor Chromium nor Brave Browser is installed")
 }
 
 // isInstalled returns true if an app with the given name is installed. It
@@ -260,19 +263,20 @@ func startProxyServer(ip string) error {
 	return nil
 }
 
-// makeUnsecuredHTTPRequestWithChrome opens Chrome and makes a request to
-// http://captive.apple.com.
-func makeUnsecuredHTTPRequestWithChrome(chromeApp string) error {
+// makeUnsecuredHTTPRequestWithBrowser opens the browser and makes a request to
+// http://captive.apple.com. The request to this domain should get hijacked,
+// triggering the captive portal.
+func makeUnsecuredHTTPRequestWithBrowser(chromeApp string) error {
 	// Command taken from captive-browser here:
 	//   https://github.com/FiloSottile/captive-browser/blob/main/captive-browser-mac-chrome.toml
 	//
-	// --wait-apps    block until Chrome is closed
-	// --new          open a new Chrome instance even if Chrome is already running
-	// --background   don't bring this new Chrome to the foreground
-	openChromeCmd := `
+	// --wait-apps    block until browser is closed
+	// --new          open a new browser instance even if it's already running
+	// --background   don't bring this new browser window to the foreground
+	openChromeCmd := fmt.Sprintf(`
 		open --new \
 		  --wait-apps \
-		  -a "Google Chrome" \
+		  -a "%s" \
 		  --background \
 		  --args \
 		    --user-data-dir="$HOME/Library/Application Support/Google/Captive" \
@@ -282,7 +286,7 @@ func makeUnsecuredHTTPRequestWithChrome(chromeApp string) error {
 			--new-window \
 			--incognito \
 		http://captive.apple.com
-`
+`, chromeApp)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()

@@ -25,8 +25,8 @@ curl --retry 3 --retry-max-time 120 -sSL https://github.com/ryboe/trigger-captiv
 
 ## Usage
 
-Just type this command in your terminal. You may need to close Chrome before
-running it.
+Just type this command in your terminal. You may need to close your browser
+before running it. If it fails, try running it multiple times.
 
 ```zsh
 trigger-captive-portal
