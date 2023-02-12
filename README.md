@@ -9,7 +9,7 @@ public Wi-Fi network. These login pages are called "captive portals" and they
 have an astonishingly high failure rate. In these situations,
 `trigger-captive-portal` can help. It will send a special request to try to
 force the pop-up to pop up. It only works on Macs and it requires that you have
-Chrome or Chromium installed. It's based on
+Chrome, Chromium, or Brave installed. It's based on
 [`captive-browser`](https://github.com/FiloSottile/captive-browser) by the
 brilliant [FiloSottile](https://words.filippo.io/captive-browser/) 🙇‍♂️. If you
 use Windows or Linux, I recommend trying [`captive-browser`](https://github.com/FiloSottile/captive-browser).
@@ -37,4 +37,4 @@ trigger-captive-portal
 * Mac only
 * updated to use Go modules
 * no configs
-* falls back to using Chromium if Chrome is not installed
+* falls back to Chromium or Brave if Chrome is not installed
